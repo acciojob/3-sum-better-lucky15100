@@ -1,27 +1,27 @@
-function threeSum(nums, target) {
-  // Sort the array in ascending order to simplify the process
-  nums.sort((a, b) => a - b);
+function threeSum(S, target) {
+  // Sort the array in ascending order
+  S.sort((a, b) => a - b);
 
   let closestSum = Infinity;
-  let result;
 
-  for (let i = 0; i < nums.length - 2; i++) {
+  for (let i = 0; i < S.length - 2; i++) {
     let left = i + 1;
-    let right = nums.length - 1;
+    let right = S.length - 1;
 
     while (left < right) {
-      const sum = nums[i] + nums[left] + nums[right];
+      const sum = S[i] + S[left] + S[right];
 
-      if (Math.abs(target - sum) < Math.abs(target - closestSum)) {
+      // Update closestSum if the current sum is closer to the target
+      if (Math.abs(sum - target) < Math.abs(closestSum - target)) {
         closestSum = sum;
       }
 
-      if (sum < target) {
-        left++;
-      } else if (sum > target) {
+      if (sum > target) {
         right--;
+      } else if (sum < target) {
+        left++;
       } else {
-        // If the sum is equal to target, we have found the exact match
+        // If the sum is equal to the target, we found the closest sum, so we can return it immediately
         return sum;
       }
     }
@@ -30,7 +30,8 @@ function threeSum(nums, target) {
   return closestSum;
 }
 
-// Test case
+// Test the function with the example input
 const S = [-1, 2, 1, -4];
 const target = 1;
-console.log("Closest sum:", threeSum(S, target));
+const result = threeSum(S, target);
+console.log(result); // Output: 2 (as -1 + 2 + 1 = 2)
